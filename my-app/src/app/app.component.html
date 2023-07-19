@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dynamic Product List</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        #inputFields {
+            margin-bottom: 10px;
+        }
+
+        button {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>TITLE</th>
+            <th>DESCRIPTION</th>
+            <th>PRICE</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let product of productList">
+              <td (dblclick)="toggleEditing(product._id, 'id')" *ngIf="!isEditing(product._id, 'id')">{{ product.id }}</td>
+              <td *ngIf="isEditing(product._id, 'id')">
+                <input type="text" [(ngModel)]="product.id">
+              </td>
+              <td (dblclick)="toggleEditing(product._id, 'title')" *ngIf="!isEditing(product._id, 'title')">{{ product.title }}</td>
+              <td *ngIf="isEditing(product._id, 'title')">
+                <input type="text" [(ngModel)]="product.title">
+              </td>
+              <td (dblclick)="toggleEditing(product._id, 'description')" *ngIf="!isEditing(product._id, 'description')">{{ product.description }}</td>
+              <td *ngIf="isEditing(product._id, 'description')">
+                <input type="text" [(ngModel)]="product.description">
+              </td>
+              <td (dblclick)="toggleEditing(product._id, 'price')" *ngIf="!isEditing(product._id, 'price')">{{ product.price }}</td>
+              <td *ngIf="isEditing(product._id, 'price')">
+                <input type="text" [(ngModel)]="product.price">
+              </td>
+              <td>
+                <button (click)="deleteProduct(product._id)">Delete</button>
+              </td>
+              <td>
+                <button (click)="updateProduct(product)">Update</button>
+              </td>
+            </tr>
+          </tbody>
+          
+          
+          
+          
+    </table>
+ 
+    <div id="inputFields">
+        <label for="id">Id:</label>
+        <input type="text" id="id" required><br>
+
+        <label for="title">Title:</label>
+        <input type="text" id="title" required><br>
+
+        <label for="description">Description:</label>
+        <input type="text" id="description" required><br>
+
+        <label for="price">Price:</label>
+        <input type="number" id="price" required><br>
+    </div>
+
+    <button (click)="addProduct()">Add a Product</button>
+    
+    
+
+
+
+</body>
+</html>
+
+<router-outlet></router-outlet>
